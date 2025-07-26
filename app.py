@@ -1,8 +1,7 @@
 from flask import Flask,render_template,request,jsonify,redirect,url_for,session,flash
 from flask_mysqldb import MySQL
 import plotly.graph_objects as go
-import os
-from MySQLdb import IntegrityError
+
 
 
 
@@ -74,26 +73,43 @@ def get_subcategories():
 
 @app.route("/register",methods=["POST","GET"])
 def register():
-if request.method == "POST":
-        fname = request.form["fname"]
-        lname = request.form["lname"]
-        email = request.form["email"]
-        uname = request.form["uname"]
-        pswd = request.form["pswd"]
+    
+    if 'submit' in request.form:
+        fname=request.form.get("fname")
+        lname=request.form.get("lname")
+        email=request.form.get("email")
+        uname=request.form.get("uname")
+        pswd=request.form.get("pswd")
+        
+              
+        cur=mysql.connection.cursor()
+        cur.execute("insert into users (fname,lname,email,uname,pswd) values (%s,%s,%s,%s,%s)",[fname,lname,email,uname,pswd])
+        mysql.connection.commit()
+        print("Registered")
+        return render_template('home.html')
+        
+        
+    return render_template('signup.html')
 
-        cur = mysql.connection.cursor()
-        try:
-            cur.execute("INSERT INTO users (fname, lname, email, uname, pswd) VALUES (%s, %s, %s, %s, %s)",
-                        (fname, lname, email, uname, pswd))
-            mysql.connection.commit()
-            flash("Registration successful!", "success")
-            return redirect(url_for("login"))
-        except IntegrityError:
-            flash("Email already exists. Please use a different email.", "danger")
-            return redirect(url_for("register"))
-        finally:
-            cur.close()
-    return render_template("register.html")
+@app.route("/income",methods=["POST","GET"])
+def income():
+    
+    if 'submit' in request.form:
+        uid=session["id"]
+        amount=request.form.get("txtincome","0")
+        
+        emi=request.form.get("emiAmount","0")
+        amount1=float(amount)-float(emi)
+       
+              
+        cur=mysql.connection.cursor()
+        cur.execute("insert into incomedet (user_id,amount,emi) values (%s,%s,%s)",[uid,amount1,emi])
+        mysql.connection.commit()
+        flash('Income Updated successfully!', 'success')
+        return render_template('usertransaction.html')
+        
+        
+    return render_template('Addincome.html')
 
 @app.route("/login",methods=["POST","GET"])
 
@@ -486,5 +502,5 @@ def monthlyBar():
 
     
 if __name__=="__main__":
-    app.secret_key="123"
+    app.secret_key='71720a3f5af80150bd022b28bd25a1ba'
     app.run(debug=True)
