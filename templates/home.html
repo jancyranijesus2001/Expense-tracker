@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Personal Budget Assistant</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <a class="navbar-brand ms-3" href="#">
+          <img
+            src="{{ url_for('static', filename='images/ii.png') }}"
+            alt="Expenses"
+            style="width: 40px"
+            class="rounded-pill"
+          />
+          AI Personal Budget Assistant
+        </a>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">SignUp</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="\login">Login</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container">
+      <img
+        src="{{ url_for('static', filename='images/expenses.jpg') }}"
+        alt="Expenses"
+        style="width: 100%; height: 300px"
+        class="rounded"
+      />
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-9">
+          <p class="mt-3" style="text-align: justify">
+            The web application <b>“AI Personal Budget Assistant”</b> is
+            developed to manage the daily expenses in a more efficient and
+            manageable way. By using this application we can reduce the manual
+            calculations of the daily expenses and keep track of the
+            expenditure.
+          </p>
+          <p style="text-align: justify">
+            This application allows the user to maintain a computerized diary.
+            Expense tracker application which will keep a track of Expenses of a
+            user on a dayto-day basis. This application keeps a record of your
+            expenses and also will give you a category wise distribution of your
+            expenses. With the help of this application user can track their
+            daily/weekly/monthly expenses. This application will also have a
+            feature which will help you stay on budget because you know your
+            expenses. Expense tracker application will generate report at the
+            end of month to show Expense via a graphical representation.
+          </p>
+        </div>
+        <div class="col-3 my-3 text-center">
+          <img
+            src="{{ url_for('static', filename='images/Exp.jpg') }}"
+            alt="Expenses"
+            class="rounded"
+            style="height: 200px"
+          />
+        </div>
+      </div>
+
+      <div class="row text-white bg-primary">
+        <small class="text-center">CopyRight @ 2025. All Rights Reserved</small>
+      </div>
+    </div>
+  </body>
+</html>

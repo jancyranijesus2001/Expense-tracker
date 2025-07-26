@@ -1,0 +1,137 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Personal Budget Assistant</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+        // Set the current date and time in the textbox
+        function setDateTime() {
+            const now = new Date();
+            const formattedDateTime = now.toISOString().slice(0, 16); // Format as "YYYY-MM-DDTHH:MM" for datetime-local
+
+            // Set the value of the textbox
+            document.getElementById('datetime').value = formattedDateTime;
+        }
+
+        // Run the function when the page loads
+        window.onload = setDateTime;
+    </script>
+
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <a class="navbar-brand ms-3" href="#">
+          <img
+            src="{{ url_for('static', filename='images/ii.png') }}"
+            alt="Expenses"
+            style="width: 40px"
+            class="rounded-pill"
+          />
+          AI Personal Budget Assistant
+        </a>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/viewtransactions">View Transactions</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container">
+      <img
+        src="{{ url_for('static', filename='images/expenses.jpg') }}"
+        alt="Expenses"
+        style="width: 100%; height: 300px"
+        class="rounded"
+      />
+    </div>
+
+    <div class="container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li><strong>{{ category.capitalize() }}:</strong> {{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+
+        <form method="POST">
+        <div class="offset-4 col-5"><h3 class="text-center">User Transaction</h3>
+            <hr>
+            <div class ="col-12">
+              <div class="form-group">
+                <label for ="dt" class="form-label">Date</label>
+                <input type="datetime-local" id="datetime" class='form-control'  name='dt' value={{trans_id.date}} >
+              </div>
+
+              <div class="form-group">
+                <label for ="category" class="form-label">Select Category</label>
+             
+
+                <select name="category" class="form-control" id="category" disabled>
+
+                    
+                  
+                    <option value="{{ cat.id }}">{{ cat.cate }}</option>
+                   
+                  
+                  
+                </select></div>
+
+              <div class="form-group">
+                <label for ="amt" class="form-label">Amount</label>
+                <input type="number" class='form-control'  name='amt' value={{trans_id.amount}}>
+              </div>
+
+              <div class="form-group mb-2">
+                <label for ="descr" class="form-label">Description</label>
+                <textarea name='descr'  rows="3" cols="50" class='form-control'>{{trans_id['description'] }}</textarea>
+              </div>
+
+       
+
+              <div class="form-group text-center  mb-4 ">
+               <input type="submit" name="submit"  value="Update" class=" btn btn-primary"> 
+               <a href="/viewtransactions" name="submit"  value="View Transactions" class=" btn btn-warning"> View Transactions </a> <br>
+               
+              </div>
+
+            </div>
+            
+        </div>
+    </form>
+    </div>
+
+      <div class="row text-white bg-primary">
+        <small class="text-center">CopyRight @ 2025. All Rights Reserved</small>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Personal Budget Assistant</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <a class="navbar-brand ms-3" href="#">
+          <img
+            src="{{ url_for('static', filename='images/ii.png') }}"
+            alt="Expenses"
+            style="width: 40px"
+            class="rounded-pill"
+          />
+          AI Personal Budget Assistant
+        </a>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/usertransaction">Transactions</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/transactionhistory">Transaction History</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container">
+      <img
+        src="{{ url_for('static', filename='images/expenses.jpg') }}"
+        alt="Expenses"
+        style="width: 100%; height: 300px"
+        class="rounded"
+      />
+    </div>
+
+  
+
+    <div class="container">
+
+       <div class="offset-3 col-6"><h3 class="text-center">View Mini Transactions</h3>
+          
+        </div>
+
+        
+        <div class="offset-3 col-6 text-center text-danger my-3" > <h3> Welcome : {{session["uname"]}}</h3> </div> <br>
+     
+       
+        <table class="table table-bordered table-primary ">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Sub Category</th>
+                    <th>Description</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for c in trans %}
+                <tr>
+                    <td>{{ c.date }}</td>
+                    <td>{{ c.amount }}</td>
+                    <td>{{ c.category }}</td>
+                    <td>{{ c.subcat }}</td>
+                    <td>{{ c.description }}</td>
+                    <td class="text-center"><a href="{{url_for("edittransaction",id=c.id)}}" class="btn btn-primary">Edit</a></td>
+                    <td class="text-center"><a href="{{url_for("deletetransaction",id=c.id)}}" class="btn btn-danger">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+      
+
+      <div class="row text-white bg-primary">
+        <small class="text-center">CopyRight @ 2025. All Rights Reserved</small>
+      </div>
+    </div>
+  </body>
+</html>
