@@ -2,6 +2,7 @@ from flask import Flask,render_template,request,jsonify,redirect,url_for,session
 from flask_mysqldb import MySQL
 import plotly.graph_objects as go
 import os
+from MySQLdb import IntegrityError
 
 
 
